@@ -17,8 +17,11 @@ def create_sqlite_connection(db_filename):
 
 def View_Data(sqlite_cur,sqlite_conn):
     # SELECT statement
-    print("1. View ALL information ")
-    print("2. View STATE information ")
+    print("Type the corresponding number:")
+    print("1. View ALL species information ")
+    print("2. View species by STATE information ")
+    print("3. View State regions ")
+    print("4. View species based on threatened level ")
     try:
         choice = int(input())
     except:
@@ -42,11 +45,11 @@ def View_Data(sqlite_cur,sqlite_conn):
                             ON m.USstate_id = us.USstate_id
                             ''')
         result = sqlite_cur.fetchall()
-    print("")
+        print("")
     elif choice == 2:
         print("Please enter a state to view information for (Ex: CA): ")
         StateGiven = input().upper()
-        sqlite_cur.execute('''SELECT m.PK, o.organism, s.species, fs.federal_status, r.unit, us.USstate
+        sqlite_cur.execute('''SELECT o.organism, s.species, fs.federal_status, r.unit, us.USstate
                             FROM Main as m
                             LEFT JOIN Organism AS o
                             ON m.organism_id = o.organism_id
@@ -59,6 +62,44 @@ def View_Data(sqlite_cur,sqlite_conn):
                             LEFT JOIN USstate AS us
                             ON m.USstate_id = us.USstate_id
                             WHERE us.USstate = ''' + StateGiven + ';')
+        result = sqlite_cur.fetchall()
+        print("")
+    elif choice == 3:
+        print("Please enter a state to view information for (Ex: CA): ")
+        StateGiven = input().upper()
+        sqlite_cur.execute('''SELECT r.unit
+                            FROM region AS r
+                            INNER JOIN Main AS m
+                            ON m.unit_id = r.unit_id
+                            INNER JOIN USstate AS us
+                            ON m.USstate_id = us.USstate_id
+                            WHERE us.USstate = ''' + StateGiven + ';')
+        result = sqlite_cur.fetchall()
+        print("")
+    elif choice == 4:
+        print("Please type which federal protection status of species you wish to view: ")
+        print("1 = Threatened ")
+        print("2 = Endangered ")
+        try:
+            choice2 = int(input())
+        except:
+            print("Invalid Choice")
+            print("")
+            choice2 = 1
+            continue
+        sqlite_cur.execute('''SELECT o.organism, s.species, r.unit, us.USstate
+                            FROM Main as m
+                            LEFT JOIN Organism AS o
+                            ON m.organism_id = o.organism_id
+                            LEFT JOIN Species AS s
+                            ON m.species_id = s.species_id
+                            LEFT JOIN Federal_Status AS fs
+                            ON m.federal_status_id = fs.federal_status_id
+                            LEFT JOIN Region AS r
+                            ON m.unit_id = r.unit_id
+                            LEFT JOIN USstate AS us
+                            ON m.USstate_id = us.USstate_id
+                            WHERE fs.federal_status_id = ''' + choice2 + ';')
         result = sqlite_cur.fetchall()
 
     for row in result:

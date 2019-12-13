@@ -26,6 +26,7 @@ CREATE TABLE Species(
   ON DELETE SET NULL
 );
 
+-- 1 or 2 = Threatened or Endangered
 CREATE TABLE Federal_Status(
   federal_status_id INTEGER PRIMARY KEY,
   federal_status varchar(50),

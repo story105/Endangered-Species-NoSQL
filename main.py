@@ -13,11 +13,11 @@ def main():
     #now use this connection and pointer to pass into the functions
     while choice != 0:
         print("--- Main Menu --- ")
-        print("1. View Species Information ")
-        print("2. Insert New Species Data")
-        print("3. Update Species Data ")
-        print("4. Add Extinct Species Information ")
-        print("0. Quit ")
+        print("1 = View Species Information ")
+        print("2 = Insert New Species Data")
+        print("3 = Update Species Data ")
+        print("4 = Add Extinct Species Information ")
+        print("0 = Quit ")
 
         try:
             choice = int(input())
