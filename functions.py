@@ -124,6 +124,7 @@ def View_Data(sqlite_cur,sqlite_conn):
     # to see difference
     print("")
 
+#-----------------------------------------------------------------------------
 def Insert_species(sqlite_cur,sqlite_conn):
     # INSERT statement
     insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
@@ -132,6 +133,11 @@ def Insert_species(sqlite_cur,sqlite_conn):
     insert_vals = ('1', 'Strawberry', 'Ice Cream', 10.50)
     sqlite_cur.execute(insert_sql, insert_vals)
 
+    print("Please enter a state to view information for (Ex: CA): ")
+    StateGiven = input()
+
+
+#-----------------------------------------------------------------------------
 def Update_Species(sqlite_cur,sqlite_conn):
     # UPDATE statement
     update_sql = '''UPDATE goods
@@ -140,9 +146,75 @@ def Update_Species(sqlite_cur,sqlite_conn):
                  '''
 
     update_vals = ('Vanilla', '1')
-
     sqlite_cur.execute(update_sql, update_vals)
 
+    print("Please enter a PK to edit information for (Ex: 428 / 0 to exit): ")
+    try:
+        choicePK = int(input())
+    except:
+        print("Invalid choice")
+        choicePK = 0
+        continue
+    if choicePK = 0:
+        print("Please view table data to see PK")
+    elif choicePK > 0: # any other Pk
+        sqlite_cur.execute('''SELECT organism_id,species_id,federal_status_id,unit_id,state_id
+                            FROM Main
+                            WHERE PK = ''' + choicePK + ';')
+        result = sqlite_cur.fetchall()
+
+        for row in result: # want to draw IDs from this to insert better
+            print(row)
+            #  NEED IDS FROM HERE? DICT MAYBE?
+
+        print("Please enter new organism name: ")
+        orgInp = input()
+        print("Please enter new species name: ")
+        speciesInp = input()
+        print("Please enter new federal status: ")
+        fsInp = input()
+        print("Please enter new region name: ")
+        regionInp = input()
+        print("Please enter new state organism found in: ")
+        stateInp = input()
+
+        update_sql = '''UPDATE Organism
+                        SET organism = ?
+                        WHERE organism_id = ?
+                        '''
+        update_vals = (orgInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Species
+                        SET species = ?
+                        WHERE species_id = ?
+                        '''
+        update_vals = (speciesInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Federal_Status
+                        SET federal_status = ?
+                        WHERE federal_status_id = ?
+                        '''
+        update_vals = (fsInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Region
+                        SET unit = ?
+                        WHERE unit_id = ?
+                        '''
+        update_vals = (regionInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE USstate
+                        SET main_id = ?
+                        WHERE extinct_id = ?
+                        '''
+        update_vals = (stateInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+
+#-----------------------------------------------------------------------------
 def Populate_Extinct_Species(sqlite_cur,sqlite_conn):
     # INSERT statement
     insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
