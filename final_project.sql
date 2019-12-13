@@ -53,8 +53,5 @@ CREATE TABLE USstate(
 
 CREATE TABLE Extinct (
   extinct_id INTEGER PRIMARY KEY,
-  main_id INT,
-  FOREIGN KEY (main_id) REFERENCES Main(PK)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  extinct VARCHAR(50)
 );
