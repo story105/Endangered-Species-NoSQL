@@ -1,33 +1,49 @@
-CREATE TABLE final_project.Main(
-PK int
-organism_id int
-species_id int
-federal_status_id int
-unit_id int
-state_id int
+-- 5 tables, one main with FOREIGN keys pointing to strin representations
+CREATE TABLE Main(
+  PK int PRIMARY KEY,
+  organism_id int,
+  species_id int,
+  federal_status_id int,
+  unit_id int,
+  state_id int
 );
 
-CREATE TABLE final_project.Organism(
-organism_id int
-organism varchar(50)
+CREATE TABLE Organism(
+  organism_id int,
+  organism varchar(50),
+  FOREIGN KEY (organism_id) REFERENCES Main(organism_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
-CREATE TABLE final_project.Species(
-species_id int
-species varchar(50)
+CREATE TABLE Species(
+  species_id int,
+  species varchar(50),
+  FOREIGN KEY (species_id) REFERENCES Main(species_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
-CREATE TABLE final_project.Federal_Status(
-federal_status_id int
-federal_status varchar(50)
+CREATE TABLE Federal_Status(
+  federal_status_id int,
+  federal_status varchar(50),
+  FOREIGN KEY (federal_status_id) REFERENCES Main(federal_status_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
-CREATE TABLE final_project.Unit(
-unit_id int
-unit varchar(50)
+CREATE TABLE Unit(
+  unit_id int,
+  unit varchar(50),
+  FOREIGN KEY (unit_id) REFERENCES Main(unit_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
-CREATE TABLE final_project.USstate(
-USstate_id int
-USstate varchar(50)
+CREATE TABLE USstate(
+  USstate_id int,
+  USstate varchar(50),
+  FOREIGN KEY (USstate_id) REFERENCES Main(state_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
