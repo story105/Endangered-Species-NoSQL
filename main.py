@@ -1,7 +1,4 @@
-# have to import hella functionaliy up here
-# Connection should be made each time you run a command?
 # Make sure that its ACID property stays
-
 # python -m pip install XXX
 
 import tableprint as tp
@@ -10,8 +7,8 @@ import functions
 def main():
 
 
-    print("--- Entry Menu --- ")
-    print("1. Sign Up A New Customer ")
+    print("--- Welcome to the Endangered Species Database ---")
+    print("")
     print("0. Quit")
     try:
         choice = int(input())
@@ -19,9 +16,11 @@ def main():
         print("Invalid Choice")
         choice = 0
     if choice == 0:
-        tp.banner("Exiting Prematurely")
+        tp.banner("Thank you for using our app")
     else:
+        #
         functions.Create_New_Customer();
+        #-------------------------------------
     while choice != 0:
 
         print("--- Main Menu --- ")
@@ -51,7 +50,7 @@ def main():
             functions.transfer_money();
 
         elif choice == 0:
-            tp.banner("Exiting Banking Application") # if yours doesn' run change any tp to print
+            tp.banner("Exiting Application") # if yours doesn' run change any tp to print
         else:
             print("Error: invalid choice received. Please re-enter an integer ")
 
