@@ -16,10 +16,8 @@ def create_sqlite_connection(db_filename):
 
     return conn
 
-def main():
-    # create SQLite connection and cursor
-    sqlite_conn = create_sqlite_connection('../../labs/lab4_joins/lab2.db')
-    sqlite_cur = sqlite_conn.cursor()
+def View_Data(sqlite_conn,sqlite_cur):
+
 
     # INSERT statement
     insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)

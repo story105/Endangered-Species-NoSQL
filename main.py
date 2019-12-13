@@ -4,6 +4,7 @@
 import tableprint as tp
 import functions
 
+
 def main():
 
 
@@ -18,16 +19,16 @@ def main():
     if choice == 0:
         tp.banner("Thank you for using our app")
     else:
-        #
-        functions.Create_New_Customer();
-        #-------------------------------------
+        # create SQLite connection and cursor
+        sqlite_conn = functions.create_sqlite_connection('../../labs/lab4_joins/lab2.db')
+        sqlite_cur = sqlite_conn.cursor()
+        #now use this connection and pointer to pass into the functions
     while choice != 0:
-
         print("--- Main Menu --- ")
-        print("1. Create Account (Know customer ID) ")  # what is the diff exactly?
-        print("2. Sign In (Know account Num) ")
-        print("3. Add/Withdrawl From Balance ")
-        print("4. Transfer Cash Between Accounts ")
+        print("1. View Species Information ")
+        print("2. Insert New Species Data")  # what is the diff exactly?
+        print("3. Update Species Data ")
+        print("4. Add Extinct Species Information ")
         print("0. Quit ")
 
         try:
