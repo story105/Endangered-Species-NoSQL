@@ -1,7 +1,6 @@
 import sqlite3
 import pandas as pd
 from random import randint
-import time, datetime
 from decimal import Decimal
 
 def function(wooo):
@@ -148,7 +147,7 @@ def Update_Species(sqlite_cur,sqlite_conn):
     update_vals = ('Vanilla', '1')
     sqlite_cur.execute(update_sql, update_vals)
 
-    print("Please enter a PK to edit information for (Ex: 428 / 0 to exit): ")
+    print("Please enter a PK to edit information for (Ex: 428 || 0 to exit): ")
     try:
         choicePK = int(input())
     except:
@@ -217,8 +216,14 @@ def Update_Species(sqlite_cur,sqlite_conn):
 #-----------------------------------------------------------------------------
 def Populate_Extinct_Species(sqlite_cur,sqlite_conn):
     # INSERT statement
-    insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
-                         VALUES (?,?,?,?)'''
-
-    insert_vals = ('1', 'Strawberry', 'Ice Cream', 10.50)
+    insert_sql = '''INSERT INTO Extinct(extinct)
+                         VALUES (?)'''
+    print("Please enter organism name that is now extinct: ")
+    inputtedStuff = input()
+    insert_vals = (inputtedStuff)
     sqlite_cur.execute(insert_sql, insert_vals)
+
+    sqlite_cur.execute('''SELECT * FROM Extinct;''')
+    result = sqlite_cur.fetchall()
+    for row in result:
+        print(row)
