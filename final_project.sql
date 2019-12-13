@@ -1,11 +1,13 @@
 -- 5 tables, one main with FOREIGN keys pointing to strin representations
 CREATE TABLE Main(
-  PK int INTEGER PRIMARY KEY,
+  PK INTEGER PRIMARY KEY,
   organism_id int,
   species_id int,
   federal_status_id int,
   unit_id int,
-  state_id int
+  state_id int,
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
 CREATE TABLE Organism(
@@ -44,6 +46,14 @@ CREATE TABLE USstate(
   USstate_id INTEGER PRIMARY KEY,
   USstate varchar(50),
   FOREIGN KEY (USstate_id) REFERENCES Main(state_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
+);
+
+CREATE TABLE Extinct (
+  extinct_id INTEGER PRIMARY KEY,
+  main_id INT,
+  FOREIGN KEY (main_id) REFERENCES Main(PK)
   ON UPDATE CASCADE
   ON DELETE SET NULL
 );
