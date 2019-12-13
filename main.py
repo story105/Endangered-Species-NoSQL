@@ -1,12 +1,9 @@
-# Make sure that its ACID property stays
 # python -m pip install XXX
-
 import tableprint as tp
 import functions
 
 
 def main():
-
 
     print("--- Welcome to the Endangered Species Database ---")
     print("")
@@ -26,7 +23,7 @@ def main():
     while choice != 0:
         print("--- Main Menu --- ")
         print("1. View Species Information ")
-        print("2. Insert New Species Data")  # what is the diff exactly?
+        print("2. Insert New Species Data")
         print("3. Update Species Data ")
         print("4. Add Extinct Species Information ")
         print("0. Quit ")
@@ -39,16 +36,16 @@ def main():
             continue
 
         if choice == 1:
-            functions.Create_Account();
+            functions.View_Data(sqlite_cur);
 
         elif choice == 2:
-            functions.sign_in();
+            functions.Insert_species(sqlite_cur);
 
         elif choice == 3:
-            functions.add_withdrawl_balance();
+            functions.Update_Species(sqlite_cur);
 
         elif choice == 4:
-            functions.transfer_money();
+            functions.Populate_Extinct_Species(sqlite_cur);
 
         elif choice == 0:
             tp.banner("Exiting Application") # if yours doesn' run change any tp to print

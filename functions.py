@@ -16,8 +16,15 @@ def create_sqlite_connection(db_filename):
 
     return conn
 
-def View_Data(sqlite_conn,sqlite_cur):
+#print("1. View Species Information ")
+#print("2. Insert New Species Data")  # what is the diff exactly?
+#print("3. Update Species Data ")
+#print("4. Add Extinct Species Information ")
 
+def View_Data(sqlite_cur):
+def Insert_species(sqlite_cur):
+def Update_Species(sqlite_cur):
+def Populate_Extinct_Species(sqlite_cur):
 
     # INSERT statement
     insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
