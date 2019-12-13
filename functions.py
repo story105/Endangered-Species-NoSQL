@@ -13,18 +13,24 @@ def create_sqlite_connection(db_filename):
         conn = sqlite3.connect(db_filename)
     except:
         print('connection failed')
-
     return conn
 
-#print("1. View Species Information ")
-#print("2. Insert New Species Data")  # what is the diff exactly?
-#print("3. Update Species Data ")
-#print("4. Add Extinct Species Information ")
+def View_Data(sqlite_cur,sqlite_conn):
+    # SELECT statement
+    sqlite_cur.execute('SELECT * FROM Main;')
+    result = sqlite_cur.fetchall()
+    counter = 0
 
-def View_Data(sqlite_cur):
-def Insert_species(sqlite_cur):
-def Update_Species(sqlite_cur):
-def Populate_Extinct_Species(sqlite_cur):
+    for row in result:
+        print(row)
+
+    # Load DB to pandas for analysis
+    sqlite_pandas = pd.read_sql('SELECT * FROM goods;', con=sqlite_conn)
+    print(sqlite_pandas.head())
+
+def Insert_species(sqlite_cur,sqlite_conn):
+def Update_Species(sqlite_cur,sqlite_conn):
+def Populate_Extinct_Species(sqlite_cur,sqlite_conn):
 
     # INSERT statement
     insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
@@ -42,16 +48,3 @@ def Populate_Extinct_Species(sqlite_cur):
     update_vals = ('Vanilla', '1')
 
     sqlite_cur.execute(update_sql, update_vals)
-
-    # SELECT statement
-    sqlite_cur.execute('SELECT * FROM goods;')
-
-    result = sqlite_cur.fetchall()
-
-    for row in result:
-        print(row)
-
-    # Load DB to pandas for analysis
-    sqlite_pandas = pd.read_sql('SELECT * FROM goods;', con=sqlite_conn)
-
-    print(sqlite_pandas.head())

@@ -36,16 +36,16 @@ def main():
             continue
 
         if choice == 1:
-            functions.View_Data(sqlite_cur);
+            functions.View_Data(sqlite_cur,sqlite_conn);
 
         elif choice == 2:
-            functions.Insert_species(sqlite_cur);
+            functions.Insert_species(sqlite_cur,sqlite_conn);
 
         elif choice == 3:
-            functions.Update_Species(sqlite_cur);
+            functions.Update_Species(sqlite_cur,sqlite_conn);
 
         elif choice == 4:
-            functions.Populate_Extinct_Species(sqlite_cur);
+            functions.Populate_Extinct_Species(sqlite_cur,sqlite_conn);
 
         elif choice == 0:
             tp.banner("Exiting Application") # if yours doesn' run change any tp to print
