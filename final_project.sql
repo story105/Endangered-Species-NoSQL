@@ -34,7 +34,7 @@ CREATE TABLE Federal_Status(
   ON DELETE SET NULL
 );
 
-CREATE TABLE Unit(
+CREATE TABLE Region(
   unit_id INTEGER PRIMARY KEY,
   unit varchar(50),
   FOREIGN KEY (unit_id) REFERENCES Main(unit_id)
