@@ -18,7 +18,7 @@ CREATE TABLE Main(
   FOREIGN KEY (species_id) REFERENCES Species(species_id)
   FOREIGN KEY (federal_status_id) REFERENCES Federal_Status(federal_status_id)
   FOREIGN KEY (unit_id) REFERENCES Region(unit_id)
-  FOREIGN KEY (USstate_id) REFERENCES USstate(state_id)
+  FOREIGN KEY (state_id) REFERENCES USstate(USstate_id)
   ON UPDATE CASCADE
   ON DELETE SET NULL
 );
