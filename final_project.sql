@@ -7,6 +7,15 @@ CREATE TABLE Temp(
   TUSstate varchar(50)
 );
 
+INSERT INTO Organism(organism)
+  ...> SELECT DISTINCT Temp.Torganism
+  ...> FROM Temp;
+
+  INSERT INTO Species(species)
+    ...> SELECT DISTINCT Temp.Tspecies
+    ...> FROM Temp;
+
+
 CREATE TABLE Main(
   PK INTEGER PRIMARY KEY,
   organism_id int,
