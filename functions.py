@@ -47,64 +47,70 @@ def View_Data(sqlite_cur,sqlite_conn):
         StateGiven = input().upper()
         sqlite_pandas = pd.read_sql('''SELECT *
                                     FROM Main
-                                    WHERE TUSstate LIKE '%''' + StateGiven + '''%';''', con=sqlite_conn)
+                                    WHERE Tunit LIKE '%''' + StateGiven + '''%';''', con=sqlite_conn)
         print(sqlite_pandas)
         print("")
 
     elif choice == 3:
-        print("Please enter a state to view information for (Ex: CA): ")
-        StateGiven = input().upper()
-        sqlite_cur.execute('''SELECT r.unit
-                            FROM region AS r
-                            INNER JOIN Main AS m
-                            ON m.unit_id = r.unit_id
-                            INNER JOIN USstate AS us
-                            ON m.USstate_id = us.USstate_id
-                            WHERE us.USstate = ''' + StateGiven + ';')
-        result = sqlite_cur.fetchall()
+        print("Please enter a region to view information for (Ex: Lake): ")
+        RegionGiven = input().upper()
+        sqlite_pandas = pd.read_sql('''SELECT *
+                                    FROM Main
+                                    WHERE Tunit LIKE '%''' + RegionGiven + '''%';''', con=sqlite_conn)
+
+        print(sqlite_pandas)
         print("")
     elif choice == 4:
         print("Please type which federal protection status of species you wish to view: ")
         print("1 = Threatened ")
         print("2 = Endangered ")
+        print("3 = Proposed ")
         try:
-            choice2 = int(input())
+            choice2 = input()
         except:
             print("Invalid Choice")
             print("")
-            choice2 = 1
+            choice2 = '1'
 
-        sqlite_cur.execute('''SELECT o.organism, s.species, r.unit, us.USstate
-                            FROM Main as m
-                            LEFT JOIN Organism AS o
-                            ON m.organism_id = o.organism_id
-                            LEFT JOIN Species AS s
-                            ON m.species_id = s.species_id
-                            LEFT JOIN Federal_Status AS fs
-                            ON m.federal_status_id = fs.federal_status_id
-                            LEFT JOIN Region AS r
-                            ON m.unit_id = r.unit_id
-                            LEFT JOIN USstate AS us
-                            ON m.USstate_id = us.USstate_id
-                            WHERE fs.federal_status_id = ''' + choice2 + ';')
-        result = sqlite_cur.fetchall()
+        sqlite_pandas = pd.read_sql('''SELECT t.Torganism, t.Tspecies, t.Tunit, t.TUSstate
+                                    FROM Main as t
+                                    WHERE Tfederal_status=''' + choice2 + ';', con=sqlite_conn)
+        print(sqlite_pandas)
+        print("")
 
-    print("")
     print("")
     # Load DB to pandas for analysis
-
 
 #-----------------------------------------------------------------------------
 def Insert_species(sqlite_cur,sqlite_conn):
     # INSERT statement
-    insert_sql = '''INSERT INTO goods(item_id, flavor, food, price)
-                         VALUES (?,?,?,?)'''
-
-    insert_vals = ('1', 'Strawberry', 'Ice Cream', 10.50)
-    sqlite_cur.execute(insert_sql, insert_vals)
-
-    print("Please enter a state to view information for (Ex: CA): ")
+    print("Please enter the organism to insert: ")
+    OrgGiven = input()
+    print("Please enter the species: ")
+    SpeciesGiven = input()
+    print("Please denote the federal status of organism: ")
+    FSGiven = input()
+    print("Please input the region the organism was spotted inhabiting: ")
+    RegionGiven = input()
+    print("Please enter the regions state(s): ")
     StateGiven = input()
+
+    sqlite_cur.execute('''SELECT organism_id
+                        FROM Organism
+                        WHERE organism = ''' + OrgGiven + ';')
+    result = sqlite_cur.fetchall()
+
+    sqlite_cur.execute('''SELECT federal_status_id
+                        FROM Federal_Status
+                        WHERE federal_status = ''' + FSGiven + ';')
+    result2 = sqlite_cur.fetchall()
+
+    OrgGiven = result
+    FSGiven = result2
+    insert_sql = '''INSERT INTO Main(Torganism, Tspecies, Tfederal_status, Tunit, TUSstate)
+                         VALUES (?,?,?,?,?)'''
+    insert_vals = (OrgGiven, SpeciesGiven, FSGiven, RegionGiven, StateGiven)
+    sqlite_cur.execute(insert_sql, insert_vals)
 
 
 #-----------------------------------------------------------------------------
