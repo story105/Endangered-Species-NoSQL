@@ -133,10 +133,15 @@ def Update_Species(sqlite_cur,sqlite_conn):
     print("What is the new FS? (Ex: Endangered)")
     choice3 = input()
 
-
     choice = 'T' + choice
+    sqlite_cur.execute('''SELECT federal_status_id
+                        FROM Federal_Status
+                        WHERE federal_status = ''' + choice3 + ';')
+    result2 = sqlite_cur.fetchall()
+    choice3 = result2 # foreign key!
+
     update_sql = 'UPDATE Main SET ' + choice + ' = ? WHERE Tspecies = ?'
-    update_vals = (choice, choice3, choice2)
+    update_vals = (choice3, choice2)
     sqlite_cur.execute(update_sql, update_vals)
 
     sqlite_pandas = pd.read_sql('''SELECT *
@@ -145,6 +150,71 @@ def Update_Species(sqlite_cur,sqlite_conn):
     print(sqlite_pandas)
     print("")
 
+
+    print("Please enter a PK to edit information for (Ex: 428 || 0 to exit): ")
+    try:
+        choicePK = int(input())
+    except:
+        print("Invalid choice")
+        choicePK = 0
+
+    if choicePK == 0:
+        print("Please view table data to see PK")
+    elif choicePK > 0: # any other Pk
+        sqlite_cur.execute('''SELECT organism_id,species_id,federal_status_id,unit_id,state_id
+                            FROM Main
+                            WHERE PK = ''' + choicePK + ';')
+        result = sqlite_cur.fetchall()
+
+        for row in result: # want to draw IDs from this to insert better
+            print(row)
+            #  NEED IDS FROM HERE? DICT MAYBE?
+
+        print("Please enter new organism name: ")
+        orgInp = input()
+        print("Please enter new species name: ")
+        speciesInp = input()
+        print("Please enter new federal status: ")
+        fsInp = input()
+        print("Please enter new region name: ")
+        regionInp = input()
+        print("Please enter new state organism found in: ")
+        stateInp = input()
+
+        update_sql = '''UPDATE Organism
+                        SET organism = ?
+                        WHERE organism_id = ?
+                        '''
+        update_vals = (orgInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Species
+                        SET species = ?
+                        WHERE species_id = ?
+                        '''
+        update_vals = (speciesInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Federal_Status
+                        SET federal_status = ?
+                        WHERE federal_status_id = ?
+                        '''
+        update_vals = (fsInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE Region
+                        SET unit = ?
+                        WHERE unit_id = ?
+                        '''
+        update_vals = (regionInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
+
+        update_sql = '''UPDATE USstate
+                        SET main_id = ?
+                        WHERE extinct_id = ?
+                        '''
+        update_vals = (stateInp, '1') #val from dict
+        sqlite_cur.execute(update_sql, update_vals)
 
 
 
