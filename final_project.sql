@@ -1,6 +1,5 @@
 -- 5 tables, one main with FOREIGN keys pointing to strin representations
 CREATE TABLE Temp(
-  TPK INTEGER PRIMARY KEY,
   Torganism varchar(50),
   Tspecies varchar(50),
   Tfederal_status varchar(50),
@@ -15,47 +14,39 @@ CREATE TABLE Main(
   federal_status_id int,
   unit_id int,
   state_id int,
+  FOREIGN KEY (organism_id) REFERENCES Organism(organism_id)
+  FOREIGN KEY (species_id) REFERENCES Main(species_id)
+  FOREIGN KEY (federal_status_id) REFERENCES Main(federal_status_id)
+  FOREIGN KEY (unit_id) REFERENCES Main(unit_id)
+  FOREIGN KEY (USstate_id) REFERENCES Main(state_id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL
 );
 
 CREATE TABLE Organism(
   organism_id INTEGER PRIMARY KEY,
-  organism varchar(50),
-  FOREIGN KEY (organism_id) REFERENCES Main(organism_id)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  organism varchar(50)
 );
 
 CREATE TABLE Species(
   species_id INTEGER PRIMARY KEY,
-  species varchar(50),
-  FOREIGN KEY (species_id) REFERENCES Main(species_id)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  species varchar(50)
 );
 
 -- 1 or 2 = Threatened or Endangered
 CREATE TABLE Federal_Status(
   federal_status_id INTEGER PRIMARY KEY,
-  federal_status varchar(50),
-  FOREIGN KEY (federal_status_id) REFERENCES Main(federal_status_id)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  federal_status varchar(50)
 );
 
 CREATE TABLE Region(
   unit_id INTEGER PRIMARY KEY,
-  unit varchar(50),
-  FOREIGN KEY (unit_id) REFERENCES Main(unit_id)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  unit varchar(50)
 );
 
 CREATE TABLE USstate(
   USstate_id INTEGER PRIMARY KEY,
-  USstate varchar(50),
-  FOREIGN KEY (USstate_id) REFERENCES Main(state_id)
-  ON UPDATE CASCADE
-  ON DELETE SET NULL
+  USstate varchar(50)
 );
 
 CREATE TABLE Extinct (
