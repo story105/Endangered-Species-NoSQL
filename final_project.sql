@@ -15,10 +15,10 @@ CREATE TABLE Main(
   unit_id int,
   state_id int,
   FOREIGN KEY (organism_id) REFERENCES Organism(organism_id)
-  FOREIGN KEY (species_id) REFERENCES Main(species_id)
-  FOREIGN KEY (federal_status_id) REFERENCES Main(federal_status_id)
-  FOREIGN KEY (unit_id) REFERENCES Main(unit_id)
-  FOREIGN KEY (USstate_id) REFERENCES Main(state_id)
+  FOREIGN KEY (species_id) REFERENCES Species(species_id)
+  FOREIGN KEY (federal_status_id) REFERENCES Federal_Status(federal_status_id)
+  FOREIGN KEY (unit_id) REFERENCES Region(unit_id)
+  FOREIGN KEY (USstate_id) REFERENCES USstate(state_id)
   ON UPDATE CASCADE
   ON DELETE SET NULL
 );
