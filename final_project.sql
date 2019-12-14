@@ -8,14 +8,11 @@ CREATE TABLE Temp(
 );
 
 -- Populate the data AFTER creating each table
-INSERT INTO Organism(organism)
-  ...> SELECT DISTINCT Temp.Torganism
-  ...> FROM Temp;
-
-  INSERT INTO Species(species)
-    ...> SELECT DISTINCT Temp.Tspecies
-    ...> FROM Temp;
-
+INSERT INTO Organism(organism)  -- Table(ColName)
+SELECT DISTINCT Temp.Torganism  -- Temp.T(ColName)
+FROM Temp;
+--
+SELECT COUNT(*) FROM USstate; -- each table to confirm
 
 CREATE TABLE Main(
   PK INTEGER PRIMARY KEY,

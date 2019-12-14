@@ -27,7 +27,6 @@ def View_Data(sqlite_cur,sqlite_conn):
         print("Invalid Choice")
         print("")
         choice = 1
-        continue
 
     if choice == 1:
         sqlite_cur.execute('''SELECT m.PK, o.organism, s.species, fs.federal_status, r.unit, us.USstate
@@ -85,7 +84,7 @@ def View_Data(sqlite_cur,sqlite_conn):
             print("Invalid Choice")
             print("")
             choice2 = 1
-            continue
+
         sqlite_cur.execute('''SELECT o.organism, s.species, r.unit, us.USstate
                             FROM Main as m
                             LEFT JOIN Organism AS o
@@ -153,8 +152,8 @@ def Update_Species(sqlite_cur,sqlite_conn):
     except:
         print("Invalid choice")
         choicePK = 0
-        continue
-    if choicePK = 0:
+
+    if choicePK == 0:
         print("Please view table data to see PK")
     elif choicePK > 0: # any other Pk
         sqlite_cur.execute('''SELECT organism_id,species_id,federal_status_id,unit_id,state_id
@@ -220,9 +219,10 @@ def Populate_Extinct_Species(sqlite_cur,sqlite_conn):
                          VALUES (?)'''
     print("Please enter organism name that is now extinct: ")
     inputtedStuff = input()
-    insert_vals = (inputtedStuff)
+    insert_vals = [inputtedStuff]
     sqlite_cur.execute(insert_sql, insert_vals)
 
+    print("")
     sqlite_cur.execute('''SELECT * FROM Extinct;''')
     result = sqlite_cur.fetchall()
     for row in result:

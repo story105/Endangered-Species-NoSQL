@@ -8,7 +8,7 @@ def main():
     print("--- Welcome to the Endangered Species Database ---")
     choice = 1
     # create SQLite connection and cursor
-    sqlite_conn = functions.create_sqlite_connection('../../labs/lab4_joins/lab2.db')
+    sqlite_conn = functions.create_sqlite_connection('final_project.db') #change for others
     sqlite_cur = sqlite_conn.cursor()
     #now use this connection and pointer to pass into the functions
     while choice != 0:
