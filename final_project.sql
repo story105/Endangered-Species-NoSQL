@@ -13,6 +13,8 @@ SELECT DISTINCT Temp.Torganism  -- Temp.T(ColName)
 FROM Temp;
 --
 SELECT COUNT(*) FROM USstate; -- each table to confirm
+-- Pass through For loop iterate counter where col == new distinct
+UPDATE Temp SET Torganism = 2 WHERE Torganism = "Amphibian" --Change to update
 
 CREATE TABLE Main(
   PK INTEGER PRIMARY KEY,
