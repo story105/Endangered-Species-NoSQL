@@ -84,7 +84,7 @@ def View_Data(sqlite_cur,sqlite_conn):
     # Load DB to pandas for analysis
 
 #-----------------------------------------------------------------------------
-def Insert_species(sqlite_cur,sqlite_conn):
+def Insert_To_DB(sqlite_cur,sqlite_conn):
     # INSERT statement
     print("Please enter the organism to insert: ")
     OrgGiven = input()

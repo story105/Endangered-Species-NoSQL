@@ -30,7 +30,7 @@ def main():
             functions.View_Data(sqlite_cur,sqlite_conn);
 
         elif choice == 2:
-            functions.Insert_species(sqlite_cur,sqlite_conn);
+            functions.Insert_To_DB(sqlite_cur,sqlite_conn);
 
         elif choice == 3:
             functions.Update_Species(sqlite_cur,sqlite_conn);
