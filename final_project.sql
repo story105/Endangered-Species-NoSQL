@@ -7,6 +7,7 @@ CREATE TABLE Temp(
   TUSstate varchar(50)
 );
 
+-- Populate the data AFTER creating each table
 INSERT INTO Organism(organism)
   ...> SELECT DISTINCT Temp.Torganism
   ...> FROM Temp;
